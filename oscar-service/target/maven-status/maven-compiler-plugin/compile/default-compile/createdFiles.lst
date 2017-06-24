@@ -1,0 +1,11 @@
+com\go\oscar\services\VoteWS$UserVote.class
+com\go\oscar\util\PropertySource.class
+com\go\oscar\services\AuthWS.class
+com\go\oscar\dao\UserDAO.class
+com\go\oscar\model\MsgResponse.class
+com\go\oscar\services\AuthWS$EmailPass.class
+com\go\oscar\services\VoteWS.class
+com\go\oscar\dao\ConnectionFactory.class
+com\go\oscar\model\User.class
+com\go\oscar\dao\VoteDAO.class
+com\go\oscar\GoOscars.class

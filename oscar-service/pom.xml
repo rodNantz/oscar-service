@@ -1,0 +1,190 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>oscarapp</groupId>
+  <artifactId>oscar-service</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <build>
+	  <plugins>
+	  
+		<plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-compiler-plugin</artifactId>
+		    <configuration>
+		        <source>1.8</source>
+		        <target>1.8</target>
+		    </configuration>
+		</plugin>
+	  
+		 <!-- maven shade plugin, executable uber Jar -->
+		 <plugin>
+		   <groupId>org.apache.maven.plugins</groupId>
+		   <artifactId>maven-shade-plugin</artifactId>
+		   <version>3.0.0</version>
+		   <executions>
+		     <execution>
+		       <phase>package</phase>
+		       <goals>
+		         <goal>shade</goal>
+		       </goals>
+		       <configuration>
+		         <transformers>
+		           <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+		             <mainClass>com.go.oscar.GoOscars</mainClass>
+		           </transformer>
+		           <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+		             <resource>META-INF/spring.handlers</resource>
+		           </transformer>
+		           <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+		             <resource>META-INF/spring.schemas</resource>
+		           </transformer>
+		         </transformers>
+		       </configuration>
+		     </execution>
+		   </executions>
+		 </plugin>
+		 
+		</plugins>
+  </build>
+  
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jetty.version>9.4.0.v20161208</jetty.version>
+    <jersey.version>2.7</jersey.version>
+    <jackson.version>2.8.0</jackson.version>
+  </properties>
+
+  <dependencies>
+	
+	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>5.1.40</version>
+	</dependency>
+	
+	<!-- JERSEY -->
+	<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client -->
+	<dependency>
+	    <groupId>org.glassfish.jersey.core</groupId>
+	    <artifactId>jersey-client</artifactId>
+	    <version>${jersey.version}</version>
+	</dependency>  
+	<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-server -->
+	<dependency>
+		<groupId>org.glassfish.jersey.core</groupId>
+	    <artifactId>jersey-server</artifactId>
+	    <version>${jersey.version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet-core -->
+	<dependency>
+	    <groupId>org.glassfish.jersey.containers</groupId>
+	    <artifactId>jersey-container-servlet-core</artifactId>
+	    <version>${jersey.version}</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.glassfish.jersey.media</groupId>
+	    <artifactId>jersey-media-multipart</artifactId>
+    	<version>${jersey.version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-json-jackson -->
+	<dependency>
+	    <groupId>org.glassfish.jersey.media</groupId>
+	    <artifactId>jersey-media-json-jackson</artifactId>
+	    <version>${jersey.version}</version>
+	</dependency>
+	
+	<!-- JACKSON -->	
+	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+	    <version>${jackson.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-annotations</artifactId>
+	    <version>${jackson.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.fasterxml.jackson.jaxrs</groupId>
+	    <artifactId>jackson-jaxrs-base</artifactId>
+	    <version>${jackson.version}</version>
+	</dependency>
+	
+	<!-- JETTY -->
+  	<dependency>
+	 	<groupId>org.eclipse.jetty</groupId>
+	 	<artifactId>jetty-server</artifactId>
+		<version>${jetty.version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-client -->
+	<dependency>
+	    <groupId>org.eclipse.jetty</groupId>
+	    <artifactId>jetty-client</artifactId>
+	    <version>${jetty.version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-servlet -->
+	<dependency>
+	    <groupId>org.eclipse.jetty</groupId>
+	    <artifactId>jetty-servlet</artifactId>
+	    <version>${jetty.version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-servlets -->
+	<dependency>
+	    <groupId>org.eclipse.jetty</groupId>
+	    <artifactId>jetty-servlets</artifactId>
+	    <version>${jetty.version}</version>
+	</dependency>
+	<!-- -->
+	<dependency>
+	  <groupId>org.eclipse.jetty.websocket</groupId>
+	  <artifactId>websocket-server</artifactId>
+	  <version>${jetty.version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+	<dependency>
+	    <groupId>com.google.code.gson</groupId>
+	    <artifactId>gson</artifactId>
+	    <version>2.7</version>
+	</dependency>
+	<!-- junit
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+     --> 
+	<!-- https://mvnrepository.com/artifact/junit/junit -->
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.12</version>
+	</dependency>
+    <!-- https://mvnrepository.com/artifact/org.json/json 
+	<dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20160810</version>
+	</dependency>
+    -->
+	<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+	<dependency>
+	    <groupId>commons-codec</groupId>
+	    <artifactId>commons-codec</artifactId>
+	    <version>1.9</version>
+	</dependency>
+		
+	<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+	<dependency>
+	    <groupId>commons-io</groupId>
+	    <artifactId>commons-io</artifactId>
+	    <version>2.5</version>
+	</dependency>
+
+  </dependencies>
+  
+</project>
