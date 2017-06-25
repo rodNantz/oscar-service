@@ -41,12 +41,14 @@ public class VoteDAO {
             return true;
         } catch (SQLException ex) {
             try{con.rollback();}catch(SQLException ex1){System.out.println("Erro ao tentar rollback. Ex="+ex1.getMessage());};
-            throw new SQLException("Erro ao inserir um usuário no banco de dados. Origem = "+ex.getMessage());
+            throw new SQLException("Erro ao inserir um voto no banco de dados. Origem = "+ex.getMessage());
         } finally{
             try{stmt.close();}catch(Exception ex){
+            	ex.printStackTrace();
             	throw new Exception("Erro ao fechar stmt. Ex="+ex.getMessage());
             	};
             try{con.close();;}catch(Exception ex){
+            	ex.printStackTrace();
             	throw new Exception("Erro ao fechar conexão. Ex="+ex.getMessage());
             	};
         }

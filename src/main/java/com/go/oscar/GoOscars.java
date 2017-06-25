@@ -89,7 +89,7 @@ public class GoOscars {
 		ResourceConfig config = new ResourceConfig();
 		config.register(MultiPartFeature.class);
 		config.packages(
-				PropertySource.props.getProperty("oscars.service.pkg")
+				servicesPkg
 				);
 		config.register(JacksonFeature.class);
 		ServletHolder servlet = new ServletHolder(new ServletContainer(config));

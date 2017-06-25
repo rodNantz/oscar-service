@@ -117,7 +117,16 @@ public class VoteWS {
                 				new MsgResponse("Director vote", false, "Usuário inválido!"))
                 		).build();
         	}
-                        
+        } catch (SQLException sqle) {
+			if( sqle.getMessage().toLowerCase().contains(voteDAO.msgAlreadyVoted.toLowerCase()) ){
+				return Response.status(500)
+		        		.entity(new MsgResponse("Director vote", false, "Você já votou nesta categoria!"))
+		        		.build();
+			}
+        	sqle.printStackTrace();
+	        return Response.status(500)
+	        		.entity(new MsgResponse("Director vote", false, sqle.getMessage()))
+	        		.build();                
 		} catch (Exception e) {
 			e.printStackTrace();
 	        return Response.status(500)

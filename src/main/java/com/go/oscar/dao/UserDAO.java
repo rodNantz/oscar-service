@@ -53,12 +53,15 @@ public class UserDAO {
             return user;
         } catch (SQLException ex) {
             try{con.rollback();}catch(SQLException ex1){System.out.println("Erro ao tentar rollback. Ex="+ex1.getMessage());};
+            ex.printStackTrace();
             throw new SQLException("Erro ao inserir um usuário no banco de dados. Origem = "+ex.getMessage());
         } finally{
             try{stmt.close();}catch(Exception ex){
+            	ex.printStackTrace();
             	throw new Exception("Erro ao fechar stmt. Ex="+ex.getMessage());
             	};
             try{con.close();;}catch(Exception ex){
+            	ex.printStackTrace();
             	throw new Exception("Erro ao fechar conexão. Ex="+ex.getMessage());
             	};
         }
@@ -98,13 +101,16 @@ public class UserDAO {
         PreparedStatement stmt = null;
         try{
             con = ConnectionFactory.getConnection();
+            con.setAutoCommit(false);
             stmt = con.prepareStatement(stmtDoLogout);
             stmt.setLong(1, user.getCodU());
             
             stmt.executeUpdate();
+            con.commit();
             
             return true;
         }catch(SQLException ex){
+        	try{con.rollback();}catch(SQLException ex1){System.out.println("Erro ao tentar rollback. Ex="+ex1.getMessage());};
         	ex.printStackTrace();
             throw new SQLException("Logout error: " +ex.getMessage());
         }finally{
