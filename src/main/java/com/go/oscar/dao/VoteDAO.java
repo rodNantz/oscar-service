@@ -14,6 +14,7 @@ public class VoteDAO {
 	MessageDigest md;
 	private final String stmtVoteForFilm = "INSERT INTO filmvote (codu, codf) VALUES(?, ?)";
 	private final String stmtVoteForDirector = "INSERT INTO dirvote (codu, codd) VALUES(?, ?)";
+	public final String msgAlreadyVoted = "Duplicate Entry";
 	   
     public VoteDAO(){
     	 try {

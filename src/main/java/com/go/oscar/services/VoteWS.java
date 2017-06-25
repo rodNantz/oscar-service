@@ -1,5 +1,7 @@
 package com.go.oscar.services;
 
+import java.sql.SQLException;
+
 import javax.ws.rs.Consumes;
 
 import javax.ws.rs.POST;
@@ -62,7 +64,17 @@ public class VoteWS {
                 				new MsgResponse("Film vote", false, "Usuário inválido!"))
                 		).build();
         	}
-                        
+        
+        } catch (SQLException sqle) {
+			if( sqle.getMessage().toLowerCase().contains(voteDAO.msgAlreadyVoted.toLowerCase()) ){
+				return Response.status(500)
+		        		.entity(new MsgResponse("Film vote", false, "Você já votou nesta categoria!"))
+		        		.build();
+			}
+        	sqle.printStackTrace();
+	        return Response.status(500)
+	        		.entity(new MsgResponse("Film vote", false, sqle.getMessage()))
+	        		.build();
 		} catch (Exception e) {
 			e.printStackTrace();
 	        return Response.status(500)

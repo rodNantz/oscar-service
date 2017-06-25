@@ -105,6 +105,7 @@ public class UserDAO {
             
             return true;
         }catch(SQLException ex){
+        	ex.printStackTrace();
             throw new SQLException("Logout error: " +ex.getMessage());
         }finally{
             try{stmt.close();}catch(Exception ex){
