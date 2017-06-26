@@ -41,7 +41,7 @@ public class AuthWS {
 		EmailPass creds = gson.fromJson(strUser, EmailPass.class);        
         try {
         	userDAO = new UserDAO();
-            User search = new User (0, creds.getUser(), creds.getPass(), "");
+            User search = new User (0, creds.getUser(), creds.getPass(), "", false);
             User found = userDAO.login(search);
         	if (found != null){
         		return Response.ok()

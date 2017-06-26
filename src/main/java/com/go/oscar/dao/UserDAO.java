@@ -30,7 +30,6 @@ public class UserDAO {
         PreparedStatement stmt = null;
         try{
             con = ConnectionFactory.getConnection();
-            con.setAutoCommit(false);
             stmt = con.prepareStatement(stmtSearchLogin);
             stmt.setString(1, user.getUser());
             stmt.setString(2, user.getPass());
@@ -41,6 +40,10 @@ public class UserDAO {
             	user.setCodU(rs.getInt("codU"));
             	user.setToken(makeToken(user));
             	user.setPass("");
+            	// checar se já votou
+            	VoteDAO voteDAO = new VoteDAO();
+            	user.setVoted( voteDAO.checkIfVoted(user) );
+            	// tentar fazer login (update logged pra true)
             	if(!dologinUpdate(user)){
             		user = null;
             	}
@@ -48,7 +51,6 @@ public class UserDAO {
             	user = null;
             }
             rs.close();
-            con.commit();
             
             return user;
         } catch (SQLException ex) {
